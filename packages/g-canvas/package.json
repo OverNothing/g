@@ -59,6 +59,7 @@
     "@antv/g-math": "^0.1.3",
     "@antv/matrix-util": "^3.0.2",
     "@antv/path-util": "~2.0.5",
+    "@antv/g-adapter-miniprogram": "~0.5.0",
     "@antv/util": "~2.0.0",
     "gl-matrix": "^3.0.0"
   },

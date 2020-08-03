@@ -1,3 +1,5 @@
+declare let my: any;
+import { document as myDocument } from '@antv/g-adapter-miniprogram/dist/miniprogram';
 import { detect } from 'detect-browser';
 import Container from './container';
 import { ICanvas } from '../interfaces';
@@ -34,10 +36,12 @@ abstract class Canvas extends Container implements ICanvas {
    * 初始化容器
    */
   initContainer() {
-    let container = this.get('container');
-    if (isString(container)) {
-      container = document.getElementById(container);
-      this.set('container', container);
+    if (!my) {
+      let container = this.get('container');
+      if (isString(container)) {
+        container = document.getElementById(container);
+        this.set('container', container);
+      }
     }
   }
 
@@ -46,13 +50,20 @@ abstract class Canvas extends Container implements ICanvas {
    * 初始化 DOM
    */
   initDom() {
-    const el = this.createDom();
-    this.set('el', el);
-    // 附加到容器
-    const container = this.get('container');
-    container.appendChild(el);
-    // 设置初始宽度
-    this.setDOMSize(this.get('width'), this.get('height'));
+    if (my) {
+      const el = myDocument.getElementById('canvas');
+      this.set('el', el);
+      const context = el.getContext('2d');
+      this.set('context', context);
+    } else {
+      const el = this.createDom();
+      this.set('el', el);
+      // 附加到容器
+      const container = this.get('container');
+      container.appendChild(el);
+      // 设置初始宽度
+      this.setDOMSize(this.get('width'), this.get('height'));
+    }
   }
 
   /**
@@ -235,7 +246,9 @@ abstract class Canvas extends Container implements ICanvas {
       timeline.stop();
     }
     this.clearEvents();
-    this.removeDom();
+    if (!my) {
+      this.removeDom();
+    }
     super.destroy();
   }
 }
