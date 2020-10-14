@@ -1,13 +1,13 @@
-import Node from "./Node";
+import Node from './Node';
 
 export default class Element extends Node {
   className: string;
-  children: Array<any>;
+  children: any[];
 
   constructor() {
     super();
 
-    this.className = "";
+    this.className = '';
     this.children = [];
   }
 

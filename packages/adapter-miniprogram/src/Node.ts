@@ -1,7 +1,7 @@
-import EventTarget from "./EventTarget";
+import EventTarget from './EventTarget';
 
 export default class Node extends EventTarget {
-  childNodes: Array<any>;
+  childNodes: any[];
 
   constructor() {
     super();
@@ -25,7 +25,7 @@ export default class Node extends EventTarget {
   }
 
   removeChild(node) {
-    const index = this.childNodes.findIndex(child => child === node);
+    const index = this.childNodes.findIndex((child) => child === node);
 
     if (index > -1) {
       return this.childNodes.splice(index, 1);
