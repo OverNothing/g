@@ -30,3 +30,5 @@ const window = {
 export { window, devicePixelRatio, document, Element, Event, EventTarget, HTMLCanvasElement, HTMLElement, Node };
 
 export { registerCanvas2D } from './register';
+
+export * from './EventIniter/index';
