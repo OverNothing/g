@@ -1,4 +1,4 @@
-declare let my: any;
+declare var my: any;
 const { screenWidth, screenHeight, windowWidth, windowHeight } = my.getSystemInfoSync();
 export default {
   width: screenWidth,
@@ -6,5 +6,5 @@ export default {
   availWidth: windowWidth,
   availHeight: windowHeight,
   availLeft: 0,
-  availTop: 0
+  availTop: 0,
 };
