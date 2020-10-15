@@ -1,5 +1,6 @@
 {
   "packages": [
+    "packages/g-adapter-miniprogram",
     "packages/g-base",
     "packages/g-canvas",
     "packages/g-svg",

@@ -6,6 +6,13 @@ export function removeFromArray(arr: any[], obj: any) {
   }
 }
 
+declare var wx: any;
+declare var my: any;
+/* global wx, my */
+// weixin miniprogram
+export const isWx = typeof wx === 'object' && typeof wx.getSystemInfoSync === 'function';
+// ant miniprogram
+export const isMy = typeof my === 'object' && typeof my.getSystemInfoSync === 'function';
 export const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
 export { default as isNil } from '@antv/util/lib/is-nil';
 export { default as isFunction } from '@antv/util/lib/is-function';

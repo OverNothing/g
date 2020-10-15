@@ -1,10 +1,9 @@
-declare let my: any;
-import { document as myDocument } from '@antv/g-adapter-miniprogram/dist/miniprogram';
+import { document as myDocument } from '@antv/g-adapter-miniprogram';
 import { detect } from 'detect-browser';
 import Container from './container';
 import { ICanvas } from '../interfaces';
 import { CanvasCfg, Point, Renderer, Cursor } from '../types';
-import { isBrowser, isNil, isString } from '../util/util';
+import { isBrowser, isNil, isString, isMy, isWx } from '../util/util';
 import Timeline from '../animate/timeline';
 import EventController from '../event/event-contoller';
 
@@ -36,7 +35,7 @@ abstract class Canvas extends Container implements ICanvas {
    * 初始化容器
    */
   initContainer() {
-    if (!my) {
+    if (!isMy || !isWx) {
       let container = this.get('container');
       if (isString(container)) {
         container = document.getElementById(container);
@@ -50,7 +49,7 @@ abstract class Canvas extends Container implements ICanvas {
    * 初始化 DOM
    */
   initDom() {
-    if (my) {
+    if (isMy || isWx) {
       const el = myDocument.getElementById('canvas');
       this.set('el', el);
       const context = el.getContext('2d');
@@ -246,7 +245,7 @@ abstract class Canvas extends Container implements ICanvas {
       timeline.stop();
     }
     this.clearEvents();
-    if (!my) {
+    if (!isMy || !isWx) {
       this.removeDom();
     }
     super.destroy();
