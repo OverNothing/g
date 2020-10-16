@@ -1,5 +1,5 @@
 declare let my: any;
-import { document as myDocument } from '@antv/g-adapter-miniprogram/dist/miniprogram';
+import { document as myDocument } from '@antv/g-adapter-miniprogram';
 import { detect } from 'detect-browser';
 import Container from './container';
 import { ICanvas } from '../interfaces';
