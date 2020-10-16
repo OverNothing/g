@@ -1,5 +1,5 @@
 import Event from '../Event';
-import { getCanvas } from '../register';
+import { getCanvas2D } from '../register';
 import document from '../document';
 
 class TouchEvent extends Event {
@@ -14,8 +14,8 @@ class TouchEvent extends Event {
     this.targetTouches = [];
     this.changedTouches = [];
 
-    this.target = getCanvas();
-    this.currentTarget = getCanvas();
+    this.target = getCanvas2D();
+    this.currentTarget = getCanvas2D();
   }
 }
 
