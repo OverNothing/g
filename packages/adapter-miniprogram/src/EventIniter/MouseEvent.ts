@@ -1,5 +1,5 @@
-import Event from "../Event";
-import document from "../document";
+import Event from '../Event';
+import document from '../document';
 
 class MouseEvent extends Event {
   constructor(type) {
@@ -8,13 +8,13 @@ class MouseEvent extends Event {
 }
 
 function eventHandlerFactory(type) {
-  return rawEvent => {
+  return (rawEvent) => {
     rawEvent.type = type;
     document.dispatchEvent(rawEvent);
   };
 }
 
-let dispatchMouseDown = eventHandlerFactory("mousedown");
-let dispatchMouseMove = eventHandlerFactory("mousemove");
-let dispatchMouseUp = eventHandlerFactory("mouseup");
+const dispatchMouseDown = eventHandlerFactory('mousedown');
+const dispatchMouseMove = eventHandlerFactory('mousemove');
+const dispatchMouseUp = eventHandlerFactory('mouseup');
 export { dispatchMouseDown, dispatchMouseMove, dispatchMouseUp };

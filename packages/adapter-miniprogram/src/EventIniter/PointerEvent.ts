@@ -1,6 +1,6 @@
-import Event from "../Event";
-import { getCanvas } from "../register";
-import document from "../document";
+import Event from '../Event';
+import { getCanvas } from '../register';
+import document from '../document';
 
 class PointerEvent extends Event {
   buttons: number;
@@ -29,36 +29,36 @@ class PointerEvent extends Event {
 
 const CLONE_PROPS = [
   // MouseEvent
-  "bubbles",
-  "cancelable",
-  "view",
-  "detail",
-  "screenX",
-  "screenY",
-  "clientX",
-  "clientY",
-  "ctrlKey",
-  "altKey",
-  "shiftKey",
-  "metaKey",
-  "button",
-  "relatedTarget",
+  'bubbles',
+  'cancelable',
+  'view',
+  'detail',
+  'screenX',
+  'screenY',
+  'clientX',
+  'clientY',
+  'ctrlKey',
+  'altKey',
+  'shiftKey',
+  'metaKey',
+  'button',
+  'relatedTarget',
 
   // PointerEvent
-  "pointerId",
-  "width",
-  "height",
-  "pressure",
-  "tiltX",
-  "tiltY",
-  "pointerType",
-  "hwTimestamp",
-  "isPrimary",
+  'pointerId',
+  'width',
+  'height',
+  'pressure',
+  'tiltX',
+  'tiltY',
+  'pointerType',
+  'hwTimestamp',
+  'isPrimary',
 
   // event instance
-  "pageX",
-  "pageY",
-  "timeStamp"
+  'pageX',
+  'pageY',
+  'timeStamp',
 ];
 
 const CLONE_DEFAULTS = [
@@ -88,17 +88,17 @@ const CLONE_DEFAULTS = [
   0,
   0,
   0,
-  "",
+  '',
   0,
   false,
 
   // event instance
   0,
   0,
-  0
+  0,
 ];
 
-const POINTER_TYPE = "touch";
+const POINTER_TYPE = 'touch';
 
 function touchToPointer(type, touch, rawEvent) {
   const e = new PointerEvent(type);
@@ -133,7 +133,7 @@ function touchToPointer(type, touch, rawEvent) {
   e.shiftKey = rawEvent.shiftKey;
 
   if (rawEvent.preventDefault) {
-    e.preventDefault = function() {
+    e.preventDefault = function () {
       rawEvent.preventDefault();
     };
   }
@@ -143,7 +143,7 @@ function touchToPointer(type, touch, rawEvent) {
 
 function typeToButtons(type) {
   let ret = 0;
-  if (type === "touchstart" || type === "touchmove" || type === "pointerdown" || type === "pointermove") {
+  if (type === 'touchstart' || type === 'touchmove' || type === 'pointerdown' || type === 'pointermove') {
     ret = 1;
   }
   return ret;
@@ -168,15 +168,15 @@ function removePrimaryPointer(touch) {
 }
 
 function eventHandlerFactory(type) {
-  return rawEvent => {
+  return (rawEvent) => {
     const changedTouches = rawEvent.changedTouches;
 
     for (let i = 0; i < changedTouches.length; i++) {
       const touch = changedTouches[i];
 
-      if (i === 0 && type === "pointerdown") {
+      if (i === 0 && type === 'pointerdown') {
         setPrimaryPointer(touch);
-      } else if (type === "pointerup" || type === "pointercancel") {
+      } else if (type === 'pointerup' || type === 'pointercancel') {
         removePrimaryPointer(touch);
       }
 
@@ -186,7 +186,7 @@ function eventHandlerFactory(type) {
   };
 }
 
-let dispatchPointerDown = eventHandlerFactory("pointerdown");
-let dispatchPointerMove = eventHandlerFactory("pointermove");
-let dispatchPointerUp = eventHandlerFactory("pointerup");
+const dispatchPointerDown = eventHandlerFactory('pointerdown');
+const dispatchPointerMove = eventHandlerFactory('pointermove');
+const dispatchPointerUp = eventHandlerFactory('pointerup');
 export { dispatchPointerDown, dispatchPointerMove, dispatchPointerUp };

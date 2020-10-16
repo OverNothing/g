@@ -1,14 +1,14 @@
-import HTMLElement from "./HTMLElement";
-import HTMLVideoElement from "./HTMLVideoElement";
-import Image from "./Image";
-import { getCanvas, getCanvas2D } from "./register";
-import Event from "./Event";
+import HTMLElement from './HTMLElement';
+import HTMLVideoElement from './HTMLVideoElement';
+import Image from './Image';
+import { getCanvas, getCanvas2D } from './register';
+import Event from './Event';
 
 class Body extends HTMLElement {
   constructor() {
     // 为了性能, 此处不按照标准的DOM层级关系设计
     // 将 body 设置为 0级, parent元素为null
-    super("body", 0);
+    super('body', 0);
   }
 
   addEventListener(type, listener, options = {}) {
@@ -26,7 +26,7 @@ class Body extends HTMLElement {
 
 class DocumentElement extends HTMLElement {
   constructor() {
-    super("html", 0);
+    super('html', 0);
   }
 
   addEventListener(type, listener, options = {}) {
@@ -45,8 +45,8 @@ class DocumentElement extends HTMLElement {
 const events = {};
 
 const document = {
-  readyState: "complete",
-  visibilityState: "visible", // 'visible' , 'hidden'
+  readyState: 'complete',
+  visibilityState: 'visible', // 'visible' , 'hidden'
   hidden: false,
   fullscreen: true,
 
@@ -65,11 +65,13 @@ const document = {
   documentElement: null,
   createElement(tagName) {
     tagName = tagName.toLowerCase();
-    if (tagName === "canvas") {
+    if (tagName === 'canvas') {
       return getCanvas2D();
-    } else if (tagName === "img") {
+    }
+    if (tagName === 'img') {
       return new Image();
-    } else if (tagName === "video") {
+    }
+    if (tagName === 'video') {
       return new HTMLVideoElement();
     }
 
@@ -86,11 +88,12 @@ const document = {
   },
 
   getElementById(id) {
-    let canvas = getCanvas();
-    let canvas2D = getCanvas2D();
+    const canvas = getCanvas();
+    const canvas2D = getCanvas2D();
     if (id === canvas.id) {
       return canvas;
-    } else if (id === canvas2D.id) {
+    }
+    if (id === canvas2D.id) {
       return canvas2D;
     }
     return null;
@@ -98,11 +101,13 @@ const document = {
 
   getElementsByTagName(tagName) {
     tagName = tagName.toLowerCase();
-    if (tagName === "head") {
+    if (tagName === 'head') {
       return [document.head];
-    } else if (tagName === "body") {
+    }
+    if (tagName === 'body') {
       return [document.body];
-    } else if (tagName === "canvas") {
+    }
+    if (tagName === 'canvas') {
       return [getCanvas(), getCanvas2D()];
     }
     return [];
@@ -113,39 +118,47 @@ const document = {
   },
 
   getElementsByName(tagName) {
-    if (tagName === "head") {
+    if (tagName === 'head') {
       return [document.head];
-    } else if (tagName === "body") {
+    }
+    if (tagName === 'body') {
       return [document.body];
-    } else if (tagName === "canvas") {
+    }
+    if (tagName === 'canvas') {
       return [getCanvas(), getCanvas2D()];
     }
     return [];
   },
 
   querySelector(query) {
-    let canvas = getCanvas();
-    let canvas2D = getCanvas2D();
-    if (query === "head") {
+    const canvas = getCanvas();
+    const canvas2D = getCanvas2D();
+    if (query === 'head') {
       return document.head;
-    } else if (query === "body") {
+    }
+    if (query === 'body') {
       return document.body;
-    } else if (query === "canvas") {
+    }
+    if (query === 'canvas') {
       return canvas;
-    } else if (query === `#${canvas.id}`) {
+    }
+    if (query === `#${canvas.id}`) {
       return canvas;
-    } else if (query === `#${canvas2D.id}`) {
+    }
+    if (query === `#${canvas2D.id}`) {
       return canvas2D;
     }
     return null;
   },
 
   querySelectorAll(query) {
-    if (query === "head") {
+    if (query === 'head') {
       return [document.head];
-    } else if (query === "body") {
+    }
+    if (query === 'body') {
       return [document.body];
-    } else if (query === "canvas") {
+    }
+    if (query === 'canvas') {
       return [getCanvas(), getCanvas2D()];
     }
     return [];
@@ -181,14 +194,14 @@ const document = {
       }
     }
 
-    if (event.target && typeof event.target["on" + type] === "function") {
-      event.target["on" + type](event);
+    if (event.target && typeof event.target[`on${type}`] === 'function') {
+      event.target[`on${type}`](event);
     }
-  }
+  },
 };
 
 document.documentElement = new DocumentElement();
-document.head = new HTMLElement("head");
+document.head = new HTMLElement('head');
 document.body = new Body();
 
 export default document;
