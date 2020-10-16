@@ -2,7 +2,7 @@
  * @fileoverview 事件处理器
  * @author dxq613@gmail.com
  */
-// import { document as myDocument } from '../../../g-adapter-miniprogram/esm/index';
+import { document as myDocument } from '@antv/g-adapter-miniprogram';
 import GraphEvent from './graph-event';
 import { ICanvas, IShape } from '../interfaces';
 import { each, isParent } from '../util/util';
@@ -105,12 +105,12 @@ class EventController {
     each(EVENTS, (eventName) => {
       el.addEventListener(eventName, this._eventCallback);
     });
-    if (document) {
+    if (myDocument) {
       // 处理移动到外面没有触发 shape mouse leave 的事件
       // 处理拖拽到外部的问题
-      document.addEventListener('mousemove', this._onDocumentMove);
+      myDocument.addEventListener('mousemove', this._onDocumentMove, {});
       // 处理拖拽过程中在外部释放鼠标的问题
-      document.addEventListener('mouseup', this._onDocumentMouseUp);
+      myDocument.addEventListener('mouseup', this._onDocumentMouseUp, {});
     }
   }
 
@@ -120,9 +120,9 @@ class EventController {
     each(EVENTS, (eventName) => {
       el.removeEventListener(eventName, this._eventCallback);
     });
-    if (document) {
-      document.removeEventListener('mousemove', this._onDocumentMove);
-      document.removeEventListener('mouseup', this._onDocumentMouseUp);
+    if (myDocument) {
+      myDocument.removeEventListener('mousemove', this._onDocumentMove);
+      myDocument.removeEventListener('mouseup', this._onDocumentMouseUp);
     }
   }
 
