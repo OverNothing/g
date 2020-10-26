@@ -1,5 +1,5 @@
 import HTMLElement from './HTMLElement';
-import { getCanvas2D } from './register';
+import { getCanvas2D, getOffscreenCanvas2D } from './register';
 import Event from './Event';
 
 class Body extends HTMLElement {
@@ -41,6 +41,7 @@ class DocumentElement extends HTMLElement {
 }
 
 const events = {};
+let isCanvasInited = false;
 
 const document = {
   readyState: 'complete',
@@ -64,6 +65,10 @@ const document = {
   createElement(tagName) {
     tagName = tagName.toLowerCase();
     if (tagName === 'canvas') {
+      if (isCanvasInited) {
+        return getOffscreenCanvas2D();
+      }
+      isCanvasInited = true;
       return getCanvas2D();
     }
 
@@ -84,7 +89,7 @@ const document = {
     if (id === canvas2D.id) {
       return canvas2D;
     }
-    return null;
+    return new HTMLElement();
   },
 
   getElementsByTagName(tagName) {

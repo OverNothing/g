@@ -1,3 +1,4 @@
+import { document as myDocument } from '@antv/g-adapter-miniprogram';
 import { AbstractCanvas } from '@antv/g-base';
 import { ChangeType } from '@antv/g-base/lib/types';
 import { IElement } from './interfaces';
@@ -68,7 +69,7 @@ class Canvas extends AbstractCanvas {
 
   // 复写基类的方法生成标签
   createDom(): HTMLElement {
-    const element = document.createElement('canvas');
+    const element = myDocument.createElement('canvas');
     const context = element.getContext('2d');
     // 缓存 context 对象
     this.set('context', context);

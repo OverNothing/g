@@ -2,17 +2,18 @@ import devicePixelRatio from './devicePixelRatio';
 import * as Mixin from './util/mixin';
 import document from './document';
 
+declare let my: any;
+
 /**
  * 同步和异步都需要的数据
  */
 let canvas2D: any = {};
+let offscreenCanvas2D: any = null;
 
 /**
  * 异步注册2Dcanvas
  */
-function registerCanvas2D(ctx, id: string) {
-  const width = 1024;
-  const height = 1024;
+function registerCanvas2D(ctx, id: string, width: number = 750, height: number = 450) {
   canvas2D = {
     width,
     height,
@@ -53,6 +54,15 @@ function registerCanvas2D(ctx, id: string) {
   };
 }
 
+function getOffscreenCanvas2D() {
+  if (offscreenCanvas2D) {
+    return offscreenCanvas2D;
+  }
+  // 初始化
+  offscreenCanvas2D = my._createOffscreenCanvas(1, 1);
+  return offscreenCanvas2D;
+}
+
 /**
  * 异步获取2Dcanvas
  */
@@ -60,4 +70,4 @@ function getCanvas2D() {
   return canvas2D;
 }
 
-export { registerCanvas2D, getCanvas2D };
+export { registerCanvas2D, getCanvas2D, getOffscreenCanvas2D };

@@ -1,7 +1,5 @@
-import { window as myWindow } from '@antv/g-adapter-miniprogram';
-
 export function getPixelRatio() {
-  return myWindow ? myWindow.devicePixelRatio : 1;
+  return window ? window.devicePixelRatio : 1;
 }
 
 /**
